@@ -29,17 +29,18 @@ const SideNav = () => {
   ];
 
   return (
-    <div className="border shadow-md h-screen">
-      <div className="flex justify-evenly items-center p-4 mx-auto">
-        <Image
-          src={"/logo.svg"}
-          alt="logo"
-          width={40}
-          height={40}
-        />
-        <h2 className='text-xl font-bold'>Welcome!</h2>
-      </div>
-      <hr className="mb-5"/>
+    <div className="border shadow-md h-screen p-6">
+      <Image src={"/logo.svg"} alt="logo" width={180} height={50} />
+      <hr className="my-5" />
+      {menuList.map((item, idx) => (
+        <h2
+          key={idx}
+          className="flex items-center gap-3 text-md p-4 text-slate-500 hover:bg-black hover:text-white cursor-pointer rounded-xl my-2"
+        >
+          <item.icon />
+          {item.name}
+        </h2>
+      ))}
     </div>
   );
 };

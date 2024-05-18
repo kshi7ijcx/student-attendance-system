@@ -7,7 +7,10 @@ const layout = ({ children }) => {
       <div className="md:w-64 fixed md:block">
         <SideNav />
       </div>
-      <div className="md:ml-64">{children}</div>
+      <div className="md:ml-64">
+        <Header/>
+        {children}
+      </div>
     </div>
   );
 };
