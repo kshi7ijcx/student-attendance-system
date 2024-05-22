@@ -1,5 +1,6 @@
 import { GraduationCap, Hand, LayoutIcon, Settings } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 const SideNav = () => {
   const menuList = [
     {
@@ -33,13 +34,14 @@ const SideNav = () => {
       <Image src={"/logo.svg"} alt="logo" width={180} height={50} />
       <hr className="my-5" />
       {menuList.map((item, idx) => (
-        <h2
-          key={idx}
-          className="flex items-center gap-3 text-md p-4 text-slate-500 hover:bg-black hover:text-white cursor-pointer rounded-xl my-2"
-        >
-          <item.icon />
-          {item.name}
-        </h2>
+        <Link href={item.path} key={idx}>
+          <h2
+            className="flex items-center gap-3 text-md p-4 text-slate-500 hover:bg-black hover:text-white cursor-pointer rounded-xl my-2"
+          >
+            <item.icon />
+            {item.name}
+          </h2>
+        </Link>
       ))}
     </div>
   );
