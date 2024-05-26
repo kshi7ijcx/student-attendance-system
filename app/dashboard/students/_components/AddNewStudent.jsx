@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { getAllGrades } from "@/app/_services/globalAPIs";
 
 const AddNewStudent = () => {
   const [open, setOpen] = useState(false);
@@ -23,9 +25,13 @@ const AddNewStudent = () => {
     console.log("Data", data);
   };
 
+  const getGradesList = () => {
+    getAllGrades()
+  }
+
   return (
     <div>
-      <Button pnClick={() => setOpen(true)}>+ Add New Student</Button>
+      <Button onClick={() => setOpen(true)}>+ Add New Student</Button>
       <Dialog open={open}>
         <DialogContent>
           <DialogHeader>
