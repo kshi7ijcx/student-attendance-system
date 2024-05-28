@@ -5,5 +5,5 @@ import { sql } from "drizzle-orm";
 
 export async function GET(req) {
   const result = await db.execute(sql`select * from ${grades};`) ;
-  return NextResponse.json({data:result['rows']});
+  return NextResponse.json(result['rows']);
 }

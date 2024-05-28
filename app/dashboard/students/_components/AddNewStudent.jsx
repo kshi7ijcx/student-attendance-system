@@ -9,11 +9,12 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getAllGrades } from "@/app/_services/globalAPIs";
 
 const AddNewStudent = () => {
   const [open, setOpen] = useState(false);
+  const [grades, setGrades] = useState([]);
   const {
     register,
     handleSubmit,
@@ -26,8 +27,12 @@ const AddNewStudent = () => {
   };
 
   const getGradesList = () => {
-    getAllGrades()
-  }
+    getAllGrades().then((resp) => setGrades(resp.data));
+  };
+
+  useEffect(() => {
+    getGradesList();
+  }, []);
 
   return (
     <div>
@@ -51,9 +56,11 @@ const AddNewStudent = () => {
                     className="p-3 border rounded-lg"
                     {...register("grade", { required: true })}
                   >
-                    <option>5th</option>
-                    <option>6th</option>
-                    <option>7th</option>
+                    {grades.map((grade, idx) => (
+                      <option key={idx} value={grade.grade}>
+                        {grade.grade}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className="py-2">
