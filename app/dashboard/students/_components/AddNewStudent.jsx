@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { addStudent, getAllGrades } from "@/app/_services/globalAPIs";
+import { toast } from "sonner";
 
 const AddNewStudent = () => {
   const [open, setOpen] = useState(false);
@@ -18,16 +19,19 @@ const AddNewStudent = () => {
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
     console.log("Data", data);
-    const resp = addStudent(data).then((response)=>(response));
-    console.log(resp)
-    if(resp){
+    const resp = addStudent(data).then((response) => response);
+    console.log(resp);
+    if (resp) {
       setOpen(false);
+      toast("New Student Added");
+      reset();
     }
   };
 
@@ -84,7 +88,7 @@ const AddNewStudent = () => {
                   />
                 </div>
                 <div className="flex gap-3 items-center justify-end mt-5">
-                  <Button onClick={() => setOpen(false)} variant="ghost">
+                  <Button type="button" onClick={() => setOpen(false)} variant="ghost">
                     Cancel
                   </Button>
                   <Button type="submit">Save</Button>
