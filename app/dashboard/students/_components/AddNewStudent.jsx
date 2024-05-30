@@ -12,10 +12,12 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { addStudent, getAllGrades } from "@/app/_services/globalAPIs";
 import { toast } from "sonner";
+import { Loader } from "lucide-react";
 
 const AddNewStudent = () => {
   const [open, setOpen] = useState(false);
   const [grades, setGrades] = useState([]);
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -91,7 +93,7 @@ const AddNewStudent = () => {
                   <Button type="button" onClick={() => setOpen(false)} variant="ghost">
                     Cancel
                   </Button>
-                  <Button type="submit">Save</Button>
+                  <Button type="submit" disabled={loading}>{loading ? <Loader className="animate-spin"/> : 'Save'}</Button>
                 </div>
               </form>
             </DialogDescription>
