@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { getAllGrades } from "@/app/_services/globalAPIs";
+import { addStudent, getAllGrades } from "@/app/_services/globalAPIs";
 
 const AddNewStudent = () => {
   const [open, setOpen] = useState(false);
@@ -24,6 +24,11 @@ const AddNewStudent = () => {
 
   const onSubmit = (data) => {
     console.log("Data", data);
+    const resp = addStudent(data).then((response)=>(response));
+    console.log(resp)
+    if(resp){
+      setOpen(false);
+    }
   };
 
   const getGradesList = () => {
