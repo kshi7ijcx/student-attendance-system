@@ -16,6 +16,6 @@ export async function POST(req, res) {
 }
 
 export async function GET(req) {
-  const result = db.execute(sql`select * from ${students}`);
-  return NextResponse.json(result);
+  const result = await db.execute(sql`select * from ${students}`);
+  return NextResponse.json(result['rows']);
 }
