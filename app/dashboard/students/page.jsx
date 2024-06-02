@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import AddNewStudent from "./_components/AddNewStudent";
 import { getAllStudents } from "@/app/_services/globalAPIs";
+import StudentTable from "./_components/StudentTable";
 
 const Page = () => {
   const [studentList, setStudentList] = useState([]);
@@ -16,6 +17,7 @@ const Page = () => {
         Students
         <AddNewStudent />
       </div>
+      <StudentTable studentList={studentList} />
     </div>
   );
 };
