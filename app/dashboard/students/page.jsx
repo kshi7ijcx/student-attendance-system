@@ -17,7 +17,7 @@ const Page = () => {
         Students
         <AddNewStudent />
       </div>
-      <StudentTable studentList={studentList} />
+      <StudentTable studentList={studentList} setStudentList={setStudentList}/>
     </div>
   );
 };

@@ -6,13 +6,54 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Search, Trash2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { deleteStudent,getAllStudents } from "@/app/_services/globalAPIs";
+import { toast } from "sonner";
 
-const StudentTable = ({ studentList }) => {
+const StudentTable = ({ studentList,setStudentList }) => {
+  const deleteRecord = (id) => {
+    deleteStudent(id).then((resp) => {
+      if (resp) {
+        getAllStudents().then((resp) => setStudentList(resp.data));
+        toast("Record Deleted Successfully!");
+      }
+    });
+  };
+
   const CustomBtn = (props) => {
     return (
-      <Button variant="destructive">
-        <Trash2 />
-      </Button>
+      <AlertDialog>
+        <AlertDialogTrigger>
+          <Button variant="destructive">
+            <Trash2 />
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={() => deleteRecord(props.data.id)}>
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     );
   };
 
