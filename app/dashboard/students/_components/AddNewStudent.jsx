@@ -10,11 +10,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { addStudent, getAllGrades } from "@/app/_services/globalAPIs";
+import { addStudent, getAllGrades, getAllStudents } from "@/app/_services/globalAPIs";
 import { toast } from "sonner";
 import { Loader } from "lucide-react";
 
-const AddNewStudent = () => {
+const AddNewStudent = ({setStudentList}) => {
   const [open, setOpen] = useState(false);
   const [grades, setGrades] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -33,6 +33,7 @@ const AddNewStudent = () => {
     if (resp) {
       setOpen(false);
       toast("New Student Added");
+      getAllStudents().then((resp) => setStudentList(resp.data));
       reset();
     }
   };

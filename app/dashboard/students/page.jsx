@@ -15,7 +15,7 @@ const Page = () => {
     <div className="p-7">
       <div className="font-bold text-2xl flex justify-between items-center">
         Students
-        <AddNewStudent />
+        <AddNewStudent setStudentList={setStudentList}/>
       </div>
       <StudentTable studentList={studentList} setStudentList={setStudentList}/>
     </div>
