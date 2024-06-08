@@ -8,8 +8,9 @@ import { CalendarDays } from "lucide-react";
 import { addMonths } from "date-fns";
 import moment from "moment";
 import { useState } from "react";
+import { Calendar } from "@/components/ui/calendar";
 
-const MonthSelector = () => {
+const MonthSelector = ({ selectedMonth }) => {
   const today = new Date();
   const nextMonths = addMonths(new Date(), 0);
   const [month, setMonth] = useState(nextMonths);
@@ -19,7 +20,17 @@ const MonthSelector = () => {
         <CalendarDays />
         {moment(month).format("MMM YYYY")}
       </PopoverTrigger>
-      <PopoverContent>Place content for the popover here.</PopoverContent>
+      <PopoverContent>
+        <Calendar
+          mode="single"
+          month={month}
+          onMonthChange={(value) => {
+            setMonth(value);
+            selectedMonth(value)
+          }}
+          className="flex flex-1 justify-center"
+        />
+      </PopoverContent>
     </Popover>
   );
 };
