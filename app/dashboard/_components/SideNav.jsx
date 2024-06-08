@@ -24,7 +24,7 @@ const SideNav = () => {
       id: 3,
       name: "Attendence",
       icon: Hand,
-      path: "/dashboard/attendence",
+      path: "/dashboard/attendance",
     },
     {
       id: 4,
