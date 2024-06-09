@@ -16,7 +16,7 @@ const MonthSelector = ({ selectedMonth }) => {
   const [month, setMonth] = useState(nextMonths);
   return (
     <Popover>
-      <PopoverTrigger className="flex gap-2 items-center bg-black text-white rounded-md px-3 py-2">
+      <PopoverTrigger className="flex gap-2 items-center bg-white text-neutral-500 rounded-md px-3 py-2 border border-slate-300">
         <CalendarDays />
         {moment(month).format("MMM YYYY")}
       </PopoverTrigger>
