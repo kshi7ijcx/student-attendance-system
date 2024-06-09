@@ -11,7 +11,6 @@ import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 
 const MonthSelector = ({ selectedMonth }) => {
-  const today = new Date();
   const nextMonths = addMonths(new Date(), 0);
   const [month, setMonth] = useState(nextMonths);
   return (

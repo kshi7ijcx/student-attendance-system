@@ -2,7 +2,7 @@
 import { getAllGrades } from "@/app/_services/globalAPIs";
 import { useState,useEffect } from "react";
 
-const GradeSelection = () => {
+const GradeSelection = ({selectedGrade}) => {
   const [grades, setGrades] = useState([]);
 
   const getGradesList = () => {
@@ -15,7 +15,7 @@ const GradeSelection = () => {
 
   return (
     <div>
-      <select className="p-2 border rounded-lg">
+      <select className="p-2 border rounded-lg" onChange={(e)=>selectedGrade(e.target.value)}>
         {grades.map((grade, idx) => (
           <option key={idx} value={grade.grade}>
             {grade.grade}
