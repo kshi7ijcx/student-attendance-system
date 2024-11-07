@@ -6,6 +6,7 @@ import MonthSelector from "./_components/MonthSelector";
 import { useState } from "react";
 import { getAttendanceList } from "@/app/_services/globalAPIs";
 import moment from "moment";
+import AttendanceGrid from "./_components/AttendanceGrid";
 
 const Attendance = () => {
   const [selectedMonth, setSelectedMonth] = useState();
@@ -33,6 +34,10 @@ const Attendance = () => {
         </div>
         <Button onClick={() => searchData()}>Search</Button>
       </div>
+      <AttendanceGrid
+        attendanceList={attendanceList}
+        selectedMonth={selectedMonth}
+      />
     </div>
   );
 };

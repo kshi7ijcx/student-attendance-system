@@ -7,7 +7,6 @@ export async function GET(req) {
   const searchParams = req.nextUrl.searchParams;
   const grade = searchParams.get("grade");
   const month = searchParams.get("month");
-
   const result = await db
     .select({
       name: students.name,
@@ -20,8 +19,34 @@ export async function GET(req) {
     })
     .from(students)
     .leftJoin(attendance, eq(students.id, attendance.studentId))
-    .where(eq(students.grade, grade))
-    .where(or(eq(attendance.date, month), isNull(attendance.date)));
+    .where(or(eq(attendance.date, month), isNull(attendance.date)))
+    .where(eq(grade, students.grade));
+  return NextResponse.json(result);
+}
+
+export async function POST(req, res) {
+  const data = await req.json();
+  const result = await db.insert(attendance).values({
+    studentId: data.studentId,
+    present: data.present,
+    day: data.day,
+    date: data.date,
+  });
+
+  return NextResponse.json(result);
+}
+
+export async function DELETE(req) {
+  const searchParams = req.nextUrl.searchParams;
+  const studentId = searchParams.get("studentId");
+  const date = searchParams.get("date");
+  const day = searchParams.get("day");
+
+  const result = await db
+    .delete(attendance)
+    .where(eq(attendance.studentId, studentId))
+    .where(eq(attendance.day, day))
+    .where(eq(attendance.date, date));
 
   return NextResponse.json(result);
 }
