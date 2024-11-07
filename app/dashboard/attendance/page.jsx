@@ -4,13 +4,19 @@ import { Button } from "@/components/ui/button";
 import GradeSelection from "./_components/GradeSelection";
 import MonthSelector from "./_components/MonthSelector";
 import { useState } from "react";
+import { getAttendanceList } from "@/app/_services/globalAPIs";
+import moment from "moment";
 
 const Attendance = () => {
   const [selectedMonth, setSelectedMonth] = useState();
   const [selectedGrade, setSelectedGrade] = useState();
+  const [attendanceList, setAttendanceList] = useState();
 
   const searchData = () => {
-    console.log(selectedMonth, selectedGrade);
+    const month = moment(selectedMonth).format("MM/YYYY");
+    getAttendanceList(selectedGrade, month).then((resp) => {
+      setAttendanceList(resp.data);
+    });
   };
 
   return (
@@ -25,7 +31,7 @@ const Attendance = () => {
           <label>Select Grade: </label>
           <GradeSelection selectedGrade={(value) => setSelectedGrade(value)} />
         </div>
-        <Button onClick={()=>searchData()}>Search</Button>
+        <Button onClick={() => searchData()}>Search</Button>
       </div>
     </div>
   );
