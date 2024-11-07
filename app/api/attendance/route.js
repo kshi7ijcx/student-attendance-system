@@ -1,6 +1,6 @@
 import db from "@/lib";
 import { attendance, students } from "@/lib/schema";
-import { eq, isNull, or } from "drizzle-orm";
+import { and, eq, isNull, or } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
@@ -41,12 +41,16 @@ export async function DELETE(req) {
   const studentId = searchParams.get("studentId");
   const date = searchParams.get("date");
   const day = searchParams.get("day");
-
+  console.log(studentId,day,date)
   const result = await db
     .delete(attendance)
-    .where(eq(attendance.studentId, studentId))
-    .where(eq(attendance.day, day))
-    .where(eq(attendance.date, date));
+    .where(
+      and(
+        eq(attendance.studentId, studentId),
+        eq(attendance.day, day),
+        eq(attendance.date, date)
+      )
+    );
 
   return NextResponse.json(result);
 }

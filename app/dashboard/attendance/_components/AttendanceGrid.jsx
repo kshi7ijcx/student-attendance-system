@@ -3,14 +3,14 @@ import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
 import moment from "moment";
-import { markAttendance } from "@/app/_services/globalAPIs";
+import { markAbsent, markAttendance } from "@/app/_services/globalAPIs";
 import { toast } from "sonner";
 
 const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
   const [rowData, setRowData] = useState();
   const [colDefs, setColDefs] = useState([
-    { field: "studentId" },
-    { field: "name" },
+    { field: "studentId", filter:true },
+    { field: "name", filder:true },
   ]);
 
   const getUniqueRecord = () => {
@@ -27,7 +27,7 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
 
   const onMarkAttendance = (day, studentId, presentStatus) => {
     const date = moment(selectedMonth).format("MM/YYYY");
-    console.log(day, studentId, presentStatus, date);
+
     if (presentStatus) {
       const data = {
         day: day,
@@ -36,8 +36,13 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
         date: date,
       };
       markAttendance(data).then((resp) => {
-        console.log(resp);
-        toast("Attendance Status Changed");
+        toast(`StudentId: ${studentId}, Marked Present`);
+      });
+    } else {
+      console.log(day, studentId, presentStatus, date);
+      markAbsent(studentId, day, date).then((resp) => {
+        console.log(studentId, day, date);
+        toast(`StudentId: ${studentId}, Marked Absent`);
       });
     }
   };
@@ -81,8 +86,8 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
         style={{ height: 500 }} // the Data Grid will fill the size of the parent container
       >
         <AgGridReact
-          rowData={rowData}
           columnDefs={colDefs}
+          rowData={rowData}
           onCellValueChanged={(e) =>
             onMarkAttendance(e.colDef.field, e.data.studentId, e.newValue)
           }

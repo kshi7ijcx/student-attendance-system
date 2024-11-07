@@ -7,3 +7,7 @@ export const deleteStudent = (id) => axios.delete(`/api/student?id=${id}`);
 export const getAttendanceList = (grade, month) =>
   axios.get("/api/attendance?grade=" + grade + "&month=" + month);
 export const markAttendance = (data) => axios.post("/api/attendance", data);
+export const markAbsent = (studentId, day, date) =>
+  axios.delete(
+    "/api/attendance?studentId=" + studentId + "&day=" + day + "&date=" + date
+  );
