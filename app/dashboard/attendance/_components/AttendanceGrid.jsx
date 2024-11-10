@@ -39,9 +39,7 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
         toast(`StudentId: ${studentId}, Marked Present`);
       });
     } else {
-      console.log(day, studentId, presentStatus, date);
       markAbsent(studentId, day, date).then((resp) => {
-        console.log(studentId, day, date);
         toast(`StudentId: ${studentId}, Marked Absent`);
       });
     }
@@ -58,7 +56,6 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
   useEffect(() => {
     if (attendanceList) {
       const userList = getUniqueRecord();
-      console.log(userList);
       setRowData(userList);
       daysArray.forEach((date) => {
         setColDefs((prevData) => [

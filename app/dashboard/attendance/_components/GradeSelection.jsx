@@ -21,6 +21,7 @@ const GradeSelection = ({ selectedGrade }) => {
           selectedGrade(e.target.value);
         }}
       >
+        <option value="" disabled selected hidden>Grade</option>
         {grades.map((grade, idx) => (
           <option key={idx} value={grade.grade}>
             {grade.grade}

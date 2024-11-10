@@ -27,9 +27,7 @@ const AddNewStudent = ({refreshData}) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Data", data);
     const resp = addStudent(data).then((response) => response);
-    console.log(resp);
     if (resp) {
       setOpen(false);
       refreshData();

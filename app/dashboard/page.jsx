@@ -3,7 +3,10 @@ import { SignedIn, UserButton } from "@clerk/nextjs";
 import MonthSelector from "./attendance/_components/MonthSelector";
 import GradeSelection from "./attendance/_components/GradeSelection";
 import { useState } from "react";
-import { getAttendanceList } from "../_services/globalAPIs";
+import {
+  getAttendanceList,
+  totalPresentCountByDay,
+} from "../_services/globalAPIs";
 import moment from "moment";
 import { useEffect } from "react";
 import StatusList from "./_components/StatusList";
@@ -12,6 +15,7 @@ const Dashboard = () => {
   const [selectedMonth, setSelectedMonth] = useState();
   const [selectedGrade, setSelectedGrade] = useState();
   const [attendanceList, setAttendanceList] = useState();
+  const [totalPresentData, setTotalPresentData] = useState([]);
 
   const getStudentAttendance = () => {
     getAttendanceList(
@@ -23,8 +27,18 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    totalCountByDay();
     getStudentAttendance();
-  }, [selectedMonth, selectedGrade]);
+  }, [selectedMonth || selectedGrade]);
+
+  const totalCountByDay = () => {
+    totalPresentCountByDay(
+      moment(selectedMonth).format("MM/yyyy"),
+      selectedGrade
+    ).then((resp) => {
+      setTotalPresentData(resp.data);
+    });
+  };
 
   return (
     <div className="p-10">

@@ -43,7 +43,6 @@ export async function DELETE(req) {
   const studentId = searchParams.get("studentId");
   const date = searchParams.get("date");
   const day = searchParams.get("day");
-  console.log(studentId, day, date);
   const result = await db
     .delete(attendance)
     .where(
