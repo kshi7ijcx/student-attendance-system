@@ -15,9 +15,9 @@ const Page = () => {
     <div className="p-7">
       <div className="font-bold text-2xl flex justify-between items-center">
         Students
-        <AddNewStudent setStudentList={setStudentList}/>
+        <AddNewStudent refreshData={getAllStudents} />
       </div>
-      <StudentTable studentList={studentList} setStudentList={setStudentList}/>
+      <StudentTable studentList={studentList} refreshData={getAllStudents} />
     </div>
   );
 };

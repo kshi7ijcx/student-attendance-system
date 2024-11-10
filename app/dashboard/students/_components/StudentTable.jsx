@@ -20,11 +20,12 @@ import {
 import { deleteStudent,getAllStudents } from "@/app/_services/globalAPIs";
 import { toast } from "sonner";
 
-const StudentTable = ({ studentList,setStudentList }) => {
+const StudentTable = ({ studentList,refreshData }) => {
   const deleteRecord = (id) => {
     deleteStudent(id).then((resp) => {
       if (resp) {
         getAllStudents().then((resp) => setStudentList(resp.data));
+        refreshData();
         toast("Record Deleted Successfully!");
       }
     });

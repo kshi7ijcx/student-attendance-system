@@ -18,8 +18,10 @@ export async function GET(req) {
       attendanceId: attendance.id,
     })
     .from(students)
-    .leftJoin(attendance, eq(students.id, attendance.studentId))
-    .where(or(eq(attendance.date, month), isNull(attendance.date)))
+    .leftJoin(
+      attendance,
+      and(eq(students.id, attendance.studentId), eq(attendance.date, month))
+    )
     .where(eq(grade, students.grade));
   return NextResponse.json(result);
 }
@@ -41,7 +43,7 @@ export async function DELETE(req) {
   const studentId = searchParams.get("studentId");
   const date = searchParams.get("date");
   const day = searchParams.get("day");
-  console.log(studentId,day,date)
+  console.log(studentId, day, date);
   const result = await db
     .delete(attendance)
     .where(

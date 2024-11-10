@@ -9,8 +9,8 @@ import { toast } from "sonner";
 const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
   const [rowData, setRowData] = useState();
   const [colDefs, setColDefs] = useState([
-    { field: "studentId", filter:true },
-    { field: "name", filder:true },
+    { field: "studentId", filter: true },
+    { field: "name", filder: true },
   ]);
 
   const getUniqueRecord = () => {
@@ -91,6 +91,9 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
           onCellValueChanged={(e) =>
             onMarkAttendance(e.colDef.field, e.data.studentId, e.newValue)
           }
+          pagination={true}
+          paginationPageSize={500}
+          paginationPageSizeSelector={[25, 50, 75]}
         />
       </div>
     </div>

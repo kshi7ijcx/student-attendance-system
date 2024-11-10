@@ -14,7 +14,7 @@ import { addStudent, getAllGrades, getAllStudents } from "@/app/_services/global
 import { toast } from "sonner";
 import { Loader } from "lucide-react";
 
-const AddNewStudent = ({setStudentList}) => {
+const AddNewStudent = ({refreshData}) => {
   const [open, setOpen] = useState(false);
   const [grades, setGrades] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,6 +32,7 @@ const AddNewStudent = ({setStudentList}) => {
     console.log(resp);
     if (resp) {
       setOpen(false);
+      refreshData();
       toast("New Student Added");
       getAllStudents().then((resp) => setStudentList(resp.data));
       reset();
