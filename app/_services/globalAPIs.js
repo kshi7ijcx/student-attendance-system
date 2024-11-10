@@ -11,3 +11,4 @@ export const markAbsent = (studentId, day, date) =>
   axios.delete(
     "/api/attendance?studentId=" + studentId + "&day=" + day + "&date=" + date
   );
+export totalPresentCountByDay = (date,grade) => axios.get('api/dashboard')
