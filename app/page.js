@@ -1,10 +1,10 @@
-import { SignedIn, SignInButton, UserButton, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignInButton, UserButton, SignedOut, SignIn } from "@clerk/nextjs";
 
 const Home = () => {
   return (
-    <div>
+    <div className="h-screen flex justify-center items-center">
       <SignedOut>
-        <SignInButton />
+        <SignIn forceRedirectUrl="/dashboard"/>
       </SignedOut>
     </div>
   );
